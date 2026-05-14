@@ -164,7 +164,7 @@ const Index = () => {
               </a>
             </div>
             <div className="flex flex-wrap gap-8 mt-12">
-              {[["100+", "объектов сдано"], ["10 лет", "на рынке"], ["24 часа", "выезд на объект"]].map(([num, label]) => (
+              {[["100+", "объектов сдано"], ["10 лет", "на рынке"], ["3 часа", "выезд на объект"]].map(([num, label]) => (
                 <div key={num}>
                   <div className="text-3xl font-bold" style={{ fontFamily: "Oswald, sans-serif", color: "#F97316" }}>{num}</div>
                   <div className="text-sm" style={{ color: "#a0a0a0" }}>{label}</div>
