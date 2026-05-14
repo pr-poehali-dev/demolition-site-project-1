@@ -33,6 +33,7 @@ const PORTFOLIO = [
 const BUILDING_TYPES = [
   { id: "wooden_house", label: "Деревянный дом", basePrice: 800 },
   { id: "brick_house", label: "Кирпичный дом", basePrice: 1200 },
+  { id: "stone_house", label: "Каменный дом", basePrice: 1400 },
   { id: "frame_house", label: "Каркасный дом", basePrice: 700 },
   { id: "bath", label: "Баня", basePrice: 600 },
   { id: "garage", label: "Гараж", basePrice: 500 },
