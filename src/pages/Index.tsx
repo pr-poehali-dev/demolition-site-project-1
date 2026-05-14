@@ -114,7 +114,7 @@ const Index = () => {
               <Icon name="Hammer" size={16} className="text-black" />
             </div>
             <span className="text-xl font-bold tracking-widest uppercase" style={{ fontFamily: "Oswald, sans-serif", color: "#fff" }}>
-              СносПро
+              PASTUHOUSE • ДЕМОНТАЖ
             </span>
           </a>
           <div className="hidden md:flex items-center gap-6">
@@ -536,9 +536,9 @@ const Index = () => {
             <div className="w-7 h-7 flex items-center justify-center rounded" style={{ background: "#F97316" }}>
               <Icon name="Hammer" size={13} className="text-black" />
             </div>
-            <span className="font-bold text-lg uppercase tracking-widest" style={{ fontFamily: "Oswald, sans-serif" }}>СносПро</span>
+            <span className="font-bold text-lg uppercase tracking-widest" style={{ fontFamily: "Oswald, sans-serif" }}>PASTUHOUSE • ДЕМОНТАЖ</span>
           </div>
-          <p className="text-sm" style={{ color: "#505050" }}>© 2024 СносПро. Профессиональный демонтаж построек</p>
+          <p className="text-sm" style={{ color: "#505050" }}>© 2024 PASTUHOUSE. Профессиональный демонтаж построек</p>
           <div className="flex flex-wrap gap-4">
             {navLinks.map(l => (
               <a key={l.href} href={l.href} className="text-xs hover:text-orange-400 transition-colors" style={{ color: "#505050" }}>
