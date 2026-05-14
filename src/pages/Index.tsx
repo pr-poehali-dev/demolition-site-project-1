@@ -72,12 +72,19 @@ function AnimSection({ children, className = "" }: { children: React.ReactNode; 
   );
 }
 
+const SEND_LEAD_URL = "https://functions.poehali.dev/6c53b29b-450d-4ff1-aa48-041a6c54de46";
+
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [buildingType, setBuildingType] = useState(BUILDING_TYPES[0]);
   const [area, setArea] = useState(80);
   const [extras, setExtras] = useState<string[]>([]);
   const [floors, setFloors] = useState(1);
+
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formMessage, setFormMessage] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
   const totalPrice = (() => {
     const base = buildingType.basePrice * area * floors;
@@ -90,6 +97,26 @@ const Index = () => {
   })();
 
   const areaPercent = ((area - 10) / (500 - 10)) * 100;
+
+  const handleSubmit = async () => {
+    if (!formPhone.trim()) {
+      setFormStatus("error");
+      return;
+    }
+    setFormStatus("loading");
+    try {
+      const calc = `${buildingType.label}, ${area} м², ${floors} эт., ~${totalPrice.toLocaleString("ru-RU")} ₽`;
+      const res = await fetch(SEND_LEAD_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: formName, phone: formPhone, message: formMessage, calc }),
+      });
+      const data = await res.json();
+      setFormStatus(data.ok ? "ok" : "error");
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   const toggleExtra = (id: string) => {
     setExtras(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -486,42 +513,70 @@ const Index = () => {
               <div className="rounded-xl p-8 border" style={{ background: "#16181c", borderColor: "#2a2d35" }}>
                 <h3 className="text-2xl font-bold uppercase mb-6" style={{ fontFamily: "Oswald, sans-serif" }}>Заказать бесплатный выезд</h3>
                 <div className="space-y-4">
-                  <div>
-                    <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>Ваше имя</label>
-                    <input
-                      type="text"
-                      placeholder="Иван Петров"
-                      className="w-full px-4 py-3 rounded-lg text-sm outline-none"
-                      style={{ background: "#1a1c21", border: "1px solid #2a2d35", color: "#e0e0e0" }}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>Телефон</label>
-                    <input
-                      type="tel"
-                      placeholder="+7 (___) ___-__-__"
-                      className="w-full px-4 py-3 rounded-lg text-sm outline-none"
-                      style={{ background: "#1a1c21", border: "1px solid #2a2d35", color: "#e0e0e0" }}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>Что нужно снести?</label>
-                    <textarea
-                      rows={3}
-                      placeholder="Опишите объект, его примерный размер и адрес..."
-                      className="w-full px-4 py-3 rounded-lg text-sm outline-none resize-none"
-                      style={{ background: "#1a1c21", border: "1px solid #2a2d35", color: "#e0e0e0" }}
-                    />
-                  </div>
-                  <button
-                    className="w-full py-4 font-bold uppercase tracking-wide text-lg rounded-lg transition-opacity hover:opacity-90"
-                    style={{ background: "#F97316", color: "#0f1012", fontFamily: "Oswald, sans-serif" }}
-                  >
-                    Отправить заявку
-                  </button>
-                  <p className="text-xs text-center" style={{ color: "#505050" }}>
-                    Нажимая кнопку, вы соглашаетесь на обработку персональных данных
-                  </p>
+                  {formStatus === "ok" ? (
+                    <div className="flex flex-col items-center justify-center py-12 gap-4">
+                      <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(249,115,22,0.15)" }}>
+                        <Icon name="CheckCircle" size={36} style={{ color: "#F97316" }} />
+                      </div>
+                      <div className="text-xl font-bold uppercase text-center" style={{ fontFamily: "Oswald, sans-serif" }}>Заявка отправлена!</div>
+                      <div className="text-sm text-center" style={{ color: "#808080" }}>Мы свяжемся с вами в ближайшее время</div>
+                    </div>
+                  ) : (
+                    <>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>Ваше имя</label>
+                        <input
+                          type="text"
+                          placeholder="Иван Петров"
+                          value={formName}
+                          onChange={e => setFormName(e.target.value)}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none"
+                          style={{ background: "#1a1c21", border: "1px solid #2a2d35", color: "#e0e0e0" }}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>
+                          Телефон <span style={{ color: "#F97316" }}>*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          placeholder="+7 (___) ___-__-__"
+                          value={formPhone}
+                          onChange={e => { setFormPhone(e.target.value); setFormStatus("idle"); }}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none"
+                          style={{ background: "#1a1c21", border: `1px solid ${formStatus === "error" && !formPhone ? "#ef4444" : "#2a2d35"}`, color: "#e0e0e0" }}
+                        />
+                        {formStatus === "error" && !formPhone && (
+                          <p className="text-xs mt-1" style={{ color: "#ef4444" }}>Укажите телефон</p>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "Oswald, sans-serif", color: "#a0a0a0" }}>Что нужно снести?</label>
+                        <textarea
+                          rows={3}
+                          placeholder="Опишите объект, его примерный размер и адрес..."
+                          value={formMessage}
+                          onChange={e => setFormMessage(e.target.value)}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none resize-none"
+                          style={{ background: "#1a1c21", border: "1px solid #2a2d35", color: "#e0e0e0" }}
+                        />
+                      </div>
+                      <button
+                        onClick={handleSubmit}
+                        disabled={formStatus === "loading"}
+                        className="w-full py-4 font-bold uppercase tracking-wide text-lg rounded-lg transition-opacity hover:opacity-90 disabled:opacity-60"
+                        style={{ background: "#F97316", color: "#0f1012", fontFamily: "Oswald, sans-serif" }}
+                      >
+                        {formStatus === "loading" ? "Отправляем..." : "Отправить заявку"}
+                      </button>
+                      {formStatus === "error" && formPhone && (
+                        <p className="text-xs text-center" style={{ color: "#ef4444" }}>Ошибка отправки. Позвоните нам напрямую.</p>
+                      )}
+                      <p className="text-xs text-center" style={{ color: "#505050" }}>
+                        Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </AnimSection>
