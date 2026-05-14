@@ -462,7 +462,7 @@ const Index = () => {
                   { icon: "Phone", label: "Телефон", value: "+7 (951) 611-25-31", href: "tel:+79516112531" },
                   { icon: "MessageCircle", label: "WhatsApp / Telegram / Max", value: "+7 (951) 611-25-31", href: "https://t.me/max" },
                   { icon: "Mail", label: "Email", value: "pastuhov.tem@yandex.ru", href: "mailto:pastuhov.tem@yandex.ru" },
-                  { icon: "Clock", label: "Режим работы", value: "Пн–Вс: 8:00 – 20:00", href: "#" },
+                  { icon: "Clock", label: "Режим работы", value: "Пн–Вс: 8:00 – 23:00", href: "#" },
                 ].map(item => (
                   <a
                     key={item.label}
