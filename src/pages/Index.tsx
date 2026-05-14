@@ -459,10 +459,9 @@ const Index = () => {
             <AnimSection>
               <div className="space-y-4">
                 {[
-                  { icon: "Phone", label: "Телефон", value: "+7 (999) 000-00-00", href: "tel:+79990000000" },
-                  { icon: "MessageCircle", label: "WhatsApp / Telegram", value: "+7 (999) 000-00-00", href: "#" },
-                  { icon: "Mail", label: "Email", value: "info@snospro.ru", href: "mailto:info@snospro.ru" },
-                  { icon: "MapPin", label: "Адрес", value: "Московская область", href: "#" },
+                  { icon: "Phone", label: "Телефон", value: "+7 (951) 611-25-31", href: "tel:+79516112531" },
+                  { icon: "MessageCircle", label: "WhatsApp / Telegram", value: "@max", href: "https://t.me/max" },
+                  { icon: "Mail", label: "Email", value: "pastuhov.tem@yandex.ru", href: "mailto:pastuhov.tem@yandex.ru" },
                   { icon: "Clock", label: "Режим работы", value: "Пн–Вс: 8:00 – 20:00", href: "#" },
                 ].map(item => (
                   <a
