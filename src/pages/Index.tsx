@@ -84,8 +84,11 @@ const Index = () => {
       const e = EXTRAS.find(x => x.id === id);
       return sum + (e?.price || 0);
     }, 0);
-    return Math.max(25000, base + extraTotal);
+    const raw = base + extraTotal;
+    return Math.max(25000, raw);
   })();
+
+  const areaPercent = ((area - 10) / (500 - 10)) * 100;
 
   const toggleExtra = (id: string) => {
     setExtras(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -358,7 +361,10 @@ const Index = () => {
                     value={area}
                     onChange={e => setArea(Number(e.target.value))}
                     className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                    style={{ accentColor: "#F97316" }}
+                    style={{
+                      accentColor: "#F97316",
+                      background: `linear-gradient(to right, #F97316 ${areaPercent}%, #2a2d35 ${areaPercent}%)`
+                    }}
                   />
                   <div className="flex justify-between text-xs mt-1" style={{ color: "#606060" }}>
                     <span>10 м²</span>
@@ -416,9 +422,12 @@ const Index = () => {
                 <div className="rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style={{ background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.3)" }}>
                   <div>
                     <div className="text-sm uppercase tracking-wide mb-1" style={{ color: "#a0a0a0", fontFamily: "Oswald, sans-serif" }}>Предварительная стоимость</div>
-                    <div className="text-4xl font-bold" style={{ fontFamily: "Oswald, sans-serif", color: "#F97316" }}></div>
+                    <div className="text-4xl font-bold transition-all duration-300" style={{ fontFamily: "Oswald, sans-serif", color: "#F97316" }}>
+                      {totalPrice.toLocaleString("ru-RU")} ₽
+                    </div>
                     <div className="text-xs mt-1" style={{ color: "#606060" }}>
                       {buildingType.label} · {area} м² · {floors} эт.
+                      {totalPrice === 25000 && <span className="ml-2 text-orange-400/70">минимальная стоимость</span>}
                     </div>
                   </div>
                   <a
