@@ -416,7 +416,7 @@ const Index = () => {
                 <div className="rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style={{ background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.3)" }}>
                   <div>
                     <div className="text-sm uppercase tracking-wide mb-1" style={{ color: "#a0a0a0", fontFamily: "Oswald, sans-serif" }}>Предварительная стоимость</div>
-                    <div className="text-4xl font-bold" style={{ fontFamily: "Oswald, sans-serif", color: "#F97316" }}>25000</div>
+                    <div className="text-4xl font-bold" style={{ fontFamily: "Oswald, sans-serif", color: "#F97316" }}></div>
                     <div className="text-xs mt-1" style={{ color: "#606060" }}>
                       {buildingType.label} · {area} м² · {floors} эт.
                     </div>
