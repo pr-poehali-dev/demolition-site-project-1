@@ -84,7 +84,7 @@ const Index = () => {
       const e = EXTRAS.find(x => x.id === id);
       return sum + (e?.price || 0);
     }, 0);
-    return base + extraTotal;
+    return Math.max(25000, base + extraTotal);
   })();
 
   const toggleExtra = (id: string) => {
