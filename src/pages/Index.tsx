@@ -146,10 +146,7 @@ const Index = () => {
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 py-24">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded text-xs font-bold tracking-widest uppercase" style={{ background: "rgba(249,115,22,0.15)", border: "1px solid rgba(249,115,22,0.4)", color: "#F97316" }}>
-              <Icon name="MapPin" size={12} />
-              Работаем по всей Московской области
-            </div>
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded text-xs font-bold tracking-widest uppercase" style={{ background: "rgba(249,115,22,0.15)", border: "1px solid rgba(249,115,22,0.4)", color: "#F97316" }}>Работаем по всей Кемеровской и Свердловской области</div>
             <h1 className="text-5xl md:text-7xl font-bold leading-none mb-6 uppercase tracking-tight" style={{ fontFamily: "Oswald, sans-serif" }}>
               Демонтаж<br />
               <span style={{ color: "#F97316" }}>любых</span><br />
