@@ -152,9 +152,7 @@ const Index = () => {
               <span style={{ color: "#F97316" }}>любых</span><br />
               построек
             </h1>
-            <p className="text-lg md:text-xl mb-10 leading-relaxed" style={{ color: "#a0a0a0", maxWidth: "520px" }}>
-              Профессиональный снос домов, бань, сараев и гаражей. Работаем быстро, чисто, с полным вывозом мусора и юридическим оформлением.
-            </p>
+            <p className="text-lg md:text-xl mb-10 leading-relaxed" style={{ color: "#a0a0a0", maxWidth: "520px" }}>Профессиональный снос домов, бань, сараев и гаражей, ларьков и других сооружений. Работаем быстро, чисто, с полным вывозом мусора и юридическим оформлением.</p>
             <div className="flex flex-wrap gap-4">
               <a href="#calculator" className="inline-flex items-center gap-2 px-8 py-4 font-bold text-lg uppercase tracking-wide rounded transition-opacity hover:opacity-90" style={{ background: "#F97316", color: "#0f1012", fontFamily: "Oswald, sans-serif" }}>
                 <Icon name="Calculator" size={20} />
